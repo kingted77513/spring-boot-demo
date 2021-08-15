@@ -1,5 +1,7 @@
 package com.teddy.springbootdemo.web;
 
+import com.teddy.springbootdemo.domain.Book;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +11,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class BookRestController {
+
+    @Autowired
+    private Book book;
 
     @Value("${book.name}")
     private String nameStr;
@@ -36,6 +41,11 @@ public class BookRestController {
         map.put("isbn", isbnStr);
         map.put("description", description);
         return map;
+    }
+
+    @GetMapping("/book-help-object")
+    public Book getHelpObject() {
+        return book;
     }
 
     // 正規表達式: {參數名:正規表達式}
