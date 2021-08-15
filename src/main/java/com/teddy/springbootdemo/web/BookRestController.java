@@ -1,5 +1,6 @@
 package com.teddy.springbootdemo.web;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -8,12 +9,32 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class BookRestController {
+
+    @Value("${book.name}")
+    private String nameStr;
+    @Value("${book.author}")
+    private String authorStr;
+    @Value("${book.isbn}")
+    private String isbnStr;
+    @Value("${book.description}")
+    private String description;
+
     @GetMapping("/books")
     public Object getAll() {
         final Map<String, Object> map = new HashMap<>();
         map.put("name", "Teddy");
         map.put("age", 10);
 
+        return map;
+    }
+
+    @GetMapping("/book-help")
+    public Object getHelp() {
+        final Map<String, Object> map = new HashMap<>();
+        map.put("name", nameStr);
+        map.put("author", authorStr);
+        map.put("isbn", isbnStr);
+        map.put("description", description);
         return map;
     }
 
