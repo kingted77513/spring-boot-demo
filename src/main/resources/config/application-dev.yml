@@ -1,0 +1,11 @@
+server:
+  port: 8080
+#  servlet:
+#    context-path: /setting
+
+logging:
+  level:
+    root: debug
+    com.teddy: debug
+  file:
+    name: logs/debug.log
