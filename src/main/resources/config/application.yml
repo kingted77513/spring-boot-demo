@@ -1,3 +1,7 @@
+# 配置文件名稱需符合 application-{profile}.yml 格式
+# 啟動時可以用指令來設定要用什麼配置檔
+# java -jar spring-boot-demo-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+
 spring:
   profiles:
     active: pro
