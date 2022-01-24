@@ -1,20 +1,22 @@
-package com.teddy.springbootdemo.domain;
+package com.teddy.springbootdemo.domain.dao.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "book")
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String name;
+
     private String author;
+
     private int status;
+
     private String description;
 
     public long getId() {
@@ -23,14 +25,6 @@ public class Book {
 
     public void setId(final long id) {
         this.id = id;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(final int status) {
-        this.status = status;
     }
 
     public String getName() {
@@ -49,6 +43,14 @@ public class Book {
         this.author = author;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(final int status) {
+        this.status = status;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -56,5 +58,4 @@ public class Book {
     public void setDescription(final String description) {
         this.description = description;
     }
-    
 }

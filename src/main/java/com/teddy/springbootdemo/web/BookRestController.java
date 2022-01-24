@@ -1,24 +1,20 @@
 package com.teddy.springbootdemo.web;
 
-import com.teddy.springbootdemo.domain.Book;
-import org.springframework.beans.factory.annotation.Value;
+import com.teddy.springbootdemo.domain.dao.entity.Book;
+import com.teddy.springbootdemo.domain.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
 public class BookRestController {
 
-    @Value("${book.name}")
-    private String nameStr;
-    @Value("${book.author}")
-    private String authorStr;
-    @Value("${book.isbn}")
-    private String isbnStr;
-    @Value("${book.description}")
-    private String description;
+    @Autowired
+    private BookService bookService;
 
     @GetMapping("/books")
     public Object getAll() {
@@ -27,21 +23,6 @@ public class BookRestController {
         map.put("age", 10);
 
         return map;
-    }
-
-    @GetMapping("/book-help")
-    public Object getHelp() {
-        final Map<String, Object> map = new HashMap<>();
-        map.put("name", nameStr);
-        map.put("author", authorStr);
-        map.put("isbn", isbnStr);
-        map.put("description", description);
-        return map;
-    }
-
-    @GetMapping("/book-help-object")
-    public Book getHelpObject() {
-        return null;
     }
 
     // 正規表達式: {參數名:正規表達式}
@@ -66,6 +47,32 @@ public class BookRestController {
         book.put("ibsn", ibsn);
 
         return book;
+    }
+
+    @GetMapping("/v1/books")
+    public List<Book> getBooks() {
+        return bookService.findAll();
+    }
+
+    @PostMapping("/v1/book")
+    public Book postBook(@RequestBody final Book book) {
+        return bookService.save(book);
+    }
+
+    @GetMapping("/v1/book/{id}")
+    public Book getBook(@PathVariable final Long id) {
+        return bookService.getBook(id);
+    }
+
+    @PutMapping("/v1/book")
+    public Book putBook(@RequestBody final Book book) {
+        return bookService.save(book);
+    }
+
+    @DeleteMapping("/v1/book/{id}")
+    public String deleteBook(@PathVariable final Long id) {
+        bookService.deleteBook(id);
+        return "delete book of " + id;
     }
 
 }
